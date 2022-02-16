@@ -5,7 +5,7 @@ import './AllRes.css'
 const AllRes = (props) => {
   console.log(props)
   const resys = props.reservations.map(resy => {
-    return <Reservation data={resy} />
+    return <Reservation data={resy} key={Date.now() + resy.id} />
   })
 
   return (
