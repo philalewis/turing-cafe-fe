@@ -12,6 +12,10 @@ class App extends Component {
   }
 
   componentDidMount() {
+    this.getBookingInfo()
+  }
+
+  getBookingInfo = () => {
     fetch('http://localhost:3001/api/v1/reservations')
     .then(response => response.json())
     .then(data => {
@@ -20,12 +24,38 @@ class App extends Component {
     .catch(error => console.log(error))
   }
 
+  submitBooking = info => {
+    console.log(info)
+    this.setState({
+      reservations: [...this.state.reservations, {
+        id: Date.now(),
+        name: info.name,
+        date: info.date,
+        time: info.time,
+        number: info.number
+      }]
+    })
+    // fetch('http://localhost:3001/api/v1/reservations', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application.json'
+    //   },
+    //   body: JSON.stringify(info)
+    // })
+    // .then(response => response.json())
+    // .then(data => {
+    //   console.log(data)
+    //   this.getBookingInfo()
+    // })
+    // .catch(error => console.log(error))
+  }
+
   render() {
     return (
       <div className="App">
         <h1 className='app-title'>Turing Cafe Reservations</h1>
         <div className='resy-form'>
-          <Form />
+          <Form submitBooking={this.submitBooking} />
         </div>
         <div className='resy-container'>
           <AllRes reservations={this.state.reservations} />

@@ -8,7 +8,7 @@ class Form extends Component {
       name: '',
       date: '',
       time: '',
-      number: '',
+      number: 0
     }
   }
 
@@ -16,8 +16,20 @@ class Form extends Component {
     this.setState({ [event.target.name]: event.target.value })
   }
 
-  handleClick = () => {
-
+  handleClick = event => {
+    event.preventDefault()
+    this.props.submitBooking({
+      name: this.state.name,
+      date: this.state.date,
+      time: this.state.time,
+      number: parseInt(this.state.number)
+    })
+    this.setState({
+      name: '',
+      date: '',
+      time: '',
+      number: 0
+    })
   }
 
   render() {
@@ -45,7 +57,7 @@ class Form extends Component {
           onChange={event => this.handleChange(event)}
         />
         <input 
-          type="text"
+          type="number"
           name="number"
           placeholder="Number of Guests"
           value={this.state.number}
@@ -53,7 +65,7 @@ class Form extends Component {
         />
         <button 
           className="submit-booking"
-          onClick={this.handleClick}
+          onClick={event => this.handleClick(event)}
         >Make Reservation</button>
       </form>
     )
