@@ -5,10 +5,10 @@ const Reservation = (props) => {
   return (
     <article className="resy-card">
       <h2>{props.data.name}</h2>
-      <p>{props.data.date}</p>
-      <p>{props.data.time} pm</p>
-      <p>Number of Guests: {props.data.number}</p>
-      <button>Cancel</button>
+      <p className="date" >{props.data.date}</p>
+      <p className="time" >{props.data.time} pm</p>
+      <p className="number" >Number of Guests: {props.data.number}</p>
+      <button className="cancel-booking" >Cancel</button>
     </article>
   )
 }
