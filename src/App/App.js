@@ -25,29 +25,29 @@ class App extends Component {
   }
 
   submitBooking = info => {
-    console.log(info)
-    this.setState({
-      reservations: [...this.state.reservations, {
-        id: Date.now(),
-        name: info.name,
-        date: info.date,
-        time: info.time,
-        number: info.number
-      }]
+    console.log('INFO', info)
+    // this.setState({
+    //   reservations: [...this.state.reservations, {
+    //     id: Date.now(),
+    //     name: info.name,
+    //     date: info.date,
+    //     time: info.time,
+    //     number: info.number
+    //   }]
+    // })
+    fetch('http://localhost:3001/api/v1/reservations', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(info)
     })
-    // fetch('http://localhost:3001/api/v1/reservations', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application.json'
-    //   },
-    //   body: JSON.stringify(info)
-    // })
-    // .then(response => response.json())
-    // .then(data => {
-    //   console.log(data)
-    //   this.getBookingInfo()
-    // })
-    // .catch(error => console.log(error))
+    .then(response => response.json())
+    .then(data => {
+      console.log('DATA', data)
+      this.getBookingInfo()
+    })
+    .catch(error => console.log(error))
   }
 
   render() {
