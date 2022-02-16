@@ -4,7 +4,12 @@ import './AllRes.css'
 
 const AllRes = (props) => {
   const resys = props.reservations.map(resy => {
-    return <Reservation data={resy} key={Date.now() + resy.id} />
+    return (
+      <Reservation
+        data={resy} key={Date.now() + resy.id}
+        deleteReservation={props.deleteReservation}
+      />
+    )
   })
 
   return (

@@ -25,16 +25,6 @@ class App extends Component {
   }
 
   submitBooking = info => {
-    console.log('INFO', info)
-    // this.setState({
-    //   reservations: [...this.state.reservations, {
-    //     id: Date.now(),
-    //     name: info.name,
-    //     date: info.date,
-    //     time: info.time,
-    //     number: info.number
-    //   }]
-    // })
     fetch('http://localhost:3001/api/v1/reservations', {
       method: 'POST',
       headers: {
@@ -43,8 +33,18 @@ class App extends Component {
       body: JSON.stringify(info)
     })
     .then(response => response.json())
-    .then(data => {
-      console.log('DATA', data)
+    .then(() => {
+      this.getBookingInfo()
+    })
+    .catch(error => console.log(error))
+  }
+
+  deleteReservation = id => {
+    fetch(`http://localhost:3001/api/v1/reservations/${id}`, {
+      method: 'DELETE'
+    })
+    .then(response => response.json())
+    .then(() => {
       this.getBookingInfo()
     })
     .catch(error => console.log(error))
@@ -58,7 +58,10 @@ class App extends Component {
           <Form submitBooking={this.submitBooking} />
         </div>
         <div className='resy-container'>
-          <AllRes reservations={this.state.reservations} />
+          <AllRes 
+            reservations={this.state.reservations} 
+            deleteReservation={this.deleteReservation}
+          />
         </div>
       </div>
     )

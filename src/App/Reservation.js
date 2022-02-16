@@ -8,7 +8,10 @@ const Reservation = (props) => {
       <p className="date" >{props.data.date}</p>
       <p className="time" >{props.data.time} pm</p>
       <p className="number" >Number of Guests: {props.data.number}</p>
-      <button className="cancel-booking" >Cancel</button>
+      <button className="cancel-booking" onClick={event => {
+        event.preventDefault()
+        props.deleteReservation(props.data.id)
+      }}>Cancel</button>
     </article>
   )
 }
